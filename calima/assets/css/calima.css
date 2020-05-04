@@ -1,0 +1,208 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+@namespace p "library://ns.projetusinformatica.com.br/flex/winter";
+@namespace components "br.com.projetusinformatica.calima.components.*";
+@namespace t "library://ns.projetusinformatica.com.br/flex/task-pp";
+@namespace lib "http://www.projetusinformatica.com.br";
+@namespace alert "spark.components.*";
+
+global {
+    modal-transparency: 0.56;
+    modal-transparency-blur: 0;
+    modal-transparency-color: #2c3e50;
+
+    text-align: left;
+    focus-color: #394869;
+}
+
+.alertTitle {
+    letterSpacing: 0;
+    fontSize: 14;
+    backgroundColor: #3498DB;
+    fontFamily: LatoNE;
+}
+
+.alertMessage {
+    letterSpacing: 0;
+    fontSize: 13;
+    fontWeight: normal;
+    color: black;
+    fontFamily: LatoNE;
+}
+
+.alertButton {
+    letterSpacing: 0;
+    fontSize: 13;
+    fontFamily: LatoNE;
+}
+
+mx|Alert {
+    titleStyleName: "alertTitle";
+    messageStyleName: "alertMessage";
+    buttonStyleName: "alertButton";
+    fontFamily: LatoNE;
+    backgroundColor: #ECF0F1;
+}
+
+s|Button {
+    skinClass: ClassReference("br.com.projetusinformatica.winter.skins.ButtonSkin");
+}
+
+s|Button.emphasized {
+    skinClass: ClassReference("br.com.projetusinformatica.winter.skins.ButtonSkin");
+}
+
+mx|Button {
+    skinClass: ClassReference("br.com.projetusinformatica.winter.skins.ButtonSkin");
+}
+
+mx|Button.emphasized {
+    skinClass: ClassReference("br.com.projetusinformatica.winter.skins.ButtonSkin");
+}
+
+p|TextInput {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.TextInputSkin');
+}
+
+p|InputSearch {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.InputSearchSkin');
+}
+
+p|DropDownListSearch {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.DropDownListSearchSkin');
+}
+
+p|Window {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.WindowSkin');
+}
+
+p|SubViewButton {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.SubViewButtonSkin');
+}
+
+p|EditBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.EditBarSkin');
+    background-color: #E7ECF1;
+}
+
+p|ProcessBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.ProcessBarSkin');
+    background-color: #E7ECF1;
+}
+
+p|SearchBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.SearchBarSkin');
+    background-color: #E7ECF1;
+}
+
+p|DetailEditBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.EditBarSkin');
+    background-color: #E7ECF1;
+}
+
+p|DetailManagerBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.DetailManagerBarSkin');
+}
+
+p|SimpleBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.SimpleBarSkin');
+    background-color: #E7ECF1;
+}
+
+p|CloseBar {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.CloseBarSkin');
+    background-color: #E7ECF1;
+}
+
+p|ProgressWindow {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.ProgressWindowSkin');
+}
+
+p|DesktopIcon {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.DesktopIconSkin');
+}
+
+p|Desktop {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.DesktopSkin');
+}
+
+p|DesktopTrash {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.DesktopTrashSkin');
+}
+
+p|OutputInfo {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.OutputInfoSkin');
+}
+
+p|DataGrid {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.DataGridSkin');
+}
+
+p|Toast {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.ToastSkin');
+}
+
+p|FileLoader {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.FileLoaderSkin');
+}
+
+s|Panel {
+    skin-class: ClassReference('br.com.projetusinformatica.winter.skins.PanelSkin');
+}
+
+s|DataGrid {
+    alternating-row-colors: #FFFFFF, #E7ECF1;
+}
+
+components|LockButton {
+    skin-class: ClassReference('br.com.projetusinformatica.calima.ger.skins.IconLockButtonSkin');
+}
+
+components|AgendarButton {
+    skinClass: ClassReference("br.com.projetusinformatica.winter.skins.ButtonSkin");
+}
+
+t|TaskView {
+    skin-class: ClassReference('br.com.projetusinformatica.calima.ger.skins.TaskWindowSkin');
+}
+
+mx|MenuBar {
+    color: #FFFFFF;
+    backgroundColor: #394869;
+    contentBackgroundColor: #394869;
+    chromeColor: #394869;
+}
+
+/*Css do Novelty*/
+lib|Button {
+    upSkin: ClassReference('br.com.projetusinformatica.calima.ger.skins.ButtonStylesSkin');
+    downSkin: ClassReference('br.com.projetusinformatica.calima.ger.skins.ButtonStylesSkin');
+    overSkin: ClassReference('br.com.projetusinformatica.calima.ger.skins.ButtonStylesSkin');
+    disabledSkin: ClassReference('br.com.projetusinformatica.calima.ger.skins.ButtonStylesSkin');
+    color: #FFFFFF;
+    fontSize: 14;
+    textRollOverColor: #FFFFFF;
+    textSelectedColor: #FFFFFF;
+}
+
+/*Calima*/
+components|ArmazenamentoChartProgressBar {
+    skinClass: ClassReference("br.com.projetusinformatica.calima.ger.skins.ArmazenamentoChartProgressBarSkin")
+}
+
+components|CreditoSmsChartProgressBar {
+    skinClass: ClassReference("br.com.projetusinformatica.calima.ger.skins.CreditoSmsChartProgressBarSkin")
+}
+
+.alertButtonSpark {
+    letterSpacing: 0;
+    fontSize: 13;
+    fontFamily: Lato;
+}
+
+alert|Alert {
+    buttonStyleName: "alertButtonSpark";
+    backgroundColor: #ECF0F1;
+    skinClass: ClassReference('br.com.projetusinformatica.winter.skins.AlertSkin');
+}
