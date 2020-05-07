@@ -1,0 +1,885 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                        http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>web</artifactId>
+    <packaging>war</packaging>
+
+    <!-- descrição do projeto -->
+    <description>Calima é um ERP Contábil - Projetus TI</description>
+
+    <!-- Projeto pai -->
+    <parent>
+        <groupId>br.com.projetusti</groupId>
+        <artifactId>calima</artifactId>
+        <version>${calima.version}</version>
+        <relativePath>../</relativePath>
+    </parent>
+
+    <properties>
+        <!-- ******************************************************************************************* -->
+        <!-- START Sonar:CONTINUOUS CODE QUALITY Properties. -->
+        <!-- https://www.sonarqube.org/ -->
+        <!-- ******************************************************************************************* -->
+        <project.testbuild.directory>${project.basedir}/../target</project.testbuild.directory>
+        <project.testresult.directory>${project.basedir}/../target/test-results</project.testresult.directory>
+
+        <sonar.jacoco.reportPaths>${project.basedir}/target/jacoco.exec,${project.basedir}/target/jacoco-it.exec
+        </sonar.jacoco.reportPaths>
+        <sonar.groovy.binaries>${project.testbuild.directory}</sonar.groovy.binaries>
+        <sonar.groovy.jacoco.reportPath>${project.testbuild.directory}/jacoco.exec</sonar.groovy.jacoco.reportPath>
+
+        <sonar.junit.reportPaths>${project.testbuild.directory}/surefire-reports</sonar.junit.reportPaths>
+        <!-- For Sonar < 6.2 -->
+        <sonar.javascript.lcov.reportPath>${project.testresult.directory}/coverage/report-lcov/lcov.info
+        </sonar.javascript.lcov.reportPath>
+        <!-- For Sonar >= 6.2 -->
+        <sonar.javascript.lcov.reportPaths>${project.testresult.directory}/coverage/report-lcov/lcov.info
+        </sonar.javascript.lcov.reportPaths>
+        <sonar.sources>src/main</sonar.sources>
+        <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
+        <sonar.tests>src/test</sonar.tests>
+
+        <sonar.findbugs.timeout>6000000</sonar.findbugs.timeout>
+        <!-- ******************************************************************************************* -->
+        <!-- END Sonar Properties -->
+        <!-- ******************************************************************************************* -->
+        <xz.version>1.8</xz.version>
+    </properties>
+
+    <!-- Construção -->
+    <build>
+        <finalName>${project.parent.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>${ant.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>flex-build</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <propertyfile file="../flex/build.properties">
+                                    <entry key="project.version" value="${project.version}"/>
+                                    <entry key="build.number" value="${buildNumber}"/>
+                                </propertyfile>
+                                <ant antfile="../flex/build.xml" usenativebasedir="true">
+                                    <target name="build"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+
+                    <execution>
+                        <id>archive</id>
+                        <phase>install</phase>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="C:/qa/homologacao/calima/${project.version}"/>
+                                <copy todir="C:/qa/homologacao/calima/${project.version}"
+                                      overwrite="true">
+                                    <fileset dir="${project.build.directory}">
+                                        <include name="${project.parent.artifactId}.war"/>
+                                    </fileset>
+                                </copy>
+
+                                <move file="C:/qa/homologacao/calima/${project.version}/${project.parent.artifactId}.war"
+                                      tofile="C:/qa/homologacao/calima/${project.version}/${project.parent.artifactId}-${project.version}-${buildNumber}.war"/>
+
+                                <ant antfile="../flex/build.xml">
+                                    <target name="update-release-list"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Plugin para geração do número do build -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>${buildnumber.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <providerImplementations>
+                        <svn>javasvn</svn>
+                    </providerImplementations>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+
+                    <format>{0,date,yyMMddHH}</format>
+                    <items>
+                        <item>timestamp</item>
+                    </items>
+                </configuration>
+            </plugin>
+
+            <!-- Plugin de compilação para os relatórios -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jasperreports-maven-plugin</artifactId>
+                <version>${jasperreports.plugin.version}</version>
+                <configuration>
+                    <compiler>net.sf.jasperreports.compilers.JRGroovyCompiler</compiler>
+                    <!--<outputDirectory>${project.build.outputDirectory}/../calima/WEB-INF/classes</outputDirectory>-->
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <id>default-cli</id>
+                        <goals>
+                            <goal>compile-reports</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>src/main/groovy</sourceDirectory>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <phase>compile</phase>
+                        <id>compile-java</id>
+                        <goals>
+                            <goal>compile-reports</goal>
+                        </goals>
+                        <configuration>
+                            <sourceDirectory>src/main/java</sourceDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+
+                    <dependency>
+                        <groupId>net.sf.jasperreports</groupId>
+                        <artifactId>jasperreports</artifactId>
+                        <version>${jasperreports.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${groovy.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                        <version>${log4j.version}</version>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>net.sf.barcode4j</groupId>
+                        <artifactId>barcode4j</artifactId>
+                        <version>${barcode4j.version}</version>
+                    </dependency>
+
+                </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>minify-maven-plugin</artifactId>
+                <version>1.7.6</version>
+                <executions>
+                    <execution>
+                        <id>minify-js</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jsEngine>CLOSURE</jsEngine>
+                    <webappTargetDir>${project.build.directory}/min</webappTargetDir>
+                    <charset>utf-8</charset>
+                    <skipMerge>false</skipMerge>
+                    <nosuffix>true</nosuffix>
+                    <jsFinalFile>calima.js</jsFinalFile>
+                    <cssFinalFile>calima.css</cssFinalFile>
+                    <cssSourceIncludes>
+                        <cssSourceInclude>**</cssSourceInclude>
+                    </cssSourceIncludes>
+                    <cssSourceExcludes>
+                        <cssSourceExclude>**/*.min.css</cssSourceExclude>
+                    </cssSourceExcludes>
+                    <jsSourceIncludes>
+                        <jsSourceInclude>**</jsSourceInclude>
+                    </jsSourceIncludes>
+                    <jsSourceExcludes>
+                        <jsSourceExclude>**/*.min.js</jsSourceExclude>
+                    </jsSourceExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.build.directory}/min</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Dependências -->
+    <dependencies>
+        <!-- apache poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+        </dependency>
+
+        <!-- Spring IoC -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <!-- Spring ORM -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+        </dependency>
+
+        <!-- Spring Flex -->
+        <dependency>
+            <groupId>org.springframework.flex</groupId>
+            <artifactId>spring-flex-core</artifactId>
+        </dependency>
+
+        <!-- Spring WEB -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <!-- Spring Test -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Spring JMS/AMQ -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-spring</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.cglib</groupId>
+            <artifactId>com.springsource.net.sf.cglib</artifactId>
+        </dependency>
+
+        <!--  Groovy -->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+        </dependency>
+
+        <!-- sintegra -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>sintegra</artifactId>
+            <version>${sintegra.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- DIPJ -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dipj</artifactId>
+            <version>${dipj.version}</version>
+        </dependency>
+
+        <!-- Biblioteca de classes utilitárias -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>novelty2-commons</artifactId>
+        </dependency>
+
+        <!-- Biblioteca com o gerador de arquivos texto -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>novelty2-text-generator</artifactId>
+        </dependency>
+
+        <!-- GIA SP -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>gia-sp</artifactId>
+            <version>${gia.sp.version}</version>
+        </dependency>
+
+        <!-- SPED Fiscal -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>efd-icms-ipi</artifactId>
+            <version>${efd.icms.ipi.version}</version>
+        </dependency>
+
+        <!-- SPED Contribuições -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>efd-contribuicoes</artifactId>
+            <version>${efd.contribuicoes.version}</version>
+        </dependency>
+
+        <!-- DAPI -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dapi</artifactId>
+            <version>${dapi.version}</version>
+        </dependency>
+
+        <!-- CTe -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>cte</artifactId>
+            <version>${cte.version}</version>
+        </dependency>
+
+        <!-- ADE -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>ade</artifactId>
+            <version>${ade.version}</version>
+        </dependency>
+
+        <!-- GissOnline -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>gissonline</artifactId>
+            <version>${giss.version}</version>
+        </dependency>
+
+        <!-- Driver de Conexão com o banco de dados -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+
+        <!-- log4j -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>apache-log4j-extras</artifactId>
+        </dependency>
+
+        <!-- commons-collections -->
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+        </dependency>
+
+        <!-- eclipselink -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+        </dependency>
+
+        <!-- Padrão de persistência utilizado pelos componentes e eventos do Winter -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>jwinter-persistence</artifactId>
+        </dependency>
+
+        <!-- Data Source -->
+        <!-- Pool -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>${hikaricp.version}</version>
+        </dependency>
+
+        <!-- SPED Contabil -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>sped-contabil</artifactId>
+            <version>${sped.contabil.version}</version>
+        </dependency>
+
+        <!-- fcont -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>fcont</artifactId>
+            <version>${fcont.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!-- calima-model -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>calima-model</artifactId>
+            <version>${calima.model.version}</version>
+        </dependency>
+
+        <!-- sef-2012-pe -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>sef-2012-pe</artifactId>
+            <version>${sef.2012.pe.version}</version>
+        </dependency>
+
+        <!-- dma-ba -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dma-ba</artifactId>
+            <version>${dma.ba.version}</version>
+        </dependency>
+
+        <!-- gia-rs -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>gia-rs</artifactId>
+            <version>${gia.rs.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>nfvc</artifactId>
+            <version>${nfvc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>redf</artifactId>
+            <version>${redf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dime-sc</artifactId>
+            <version>${dime.sc.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>destda</artifactId>
+            <version>${destda.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>novelty</artifactId>
+        </dependency>
+
+        <!-- novelty-report -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>novelty-report</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+        </dependency>
+
+        <!-- Testes -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Query DSL -->
+        <dependency>
+            <groupId>com.mysema.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+        </dependency>
+
+        <!-- Micro arquitetura de eventos -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>jevents</artifactId>
+        </dependency>
+
+        <!-- jackson databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
+        <!-- Extensões para o Groovy -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>novelty2-extensions</artifactId>
+        </dependency>
+
+        <!--Webclient para pegar dados do site da receita -->
+        <dependency>
+            <groupId>net.sourceforge.htmlunit</groupId>
+            <artifactId>htmlunit</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
+        <!-- Envio de E-mails -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-email</artifactId>
+        </dependency>
+
+        <!-- SLF4J Simple binding -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+        </dependency>
+
+        <!-- API de Relatórios -->
+        <dependency>
+            <groupId>br.com.projetusinformatica</groupId>
+            <artifactId>describe</artifactId>
+        </dependency>
+
+        <!-- Fontes (Relatórios)  -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>fonts</artifactId>
+        </dependency>
+
+        <!-- NF-Paulista -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>nf-paulista</artifactId>
+            <version>${nf.paulista.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti.ws.nfse</groupId>
+            <artifactId>ws-nfse</artifactId>
+            <version>${ws.nfse.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>groovy-all</artifactId>
+                    <groupId>org.codehaus.groovy</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Biblioteca de datas -->
+        <dependency>
+            <groupId>joda-time</groupId>
+            <artifactId>joda-time</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>homolognet-core</artifactId>
+            <version>${homolognet.core.version}</version>
+        </dependency>
+
+        <!-- Biblioteca utilitária para Reflections (Usada na contrução da persistence unit de testes) -->
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- AspectJ -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-compress</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.tukaani</groupId>
+            <artifactId>xz</artifactId>
+            <version>${xz.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sourceforge.htmlcleaner</groupId>
+            <artifactId>htmlcleaner</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.junrar</groupId>
+            <artifactId>junrar</artifactId>
+        </dependency>
+
+        <!-- Quartz agendamento de jobs -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.barcode4j</groupId>
+            <artifactId>barcode4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>batik-bridge</artifactId>
+        </dependency>
+
+        <!-- EXTRATUS -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>extratus</artifactId>
+            <version>${extratus.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openfuxml</groupId>
+            <artifactId>ofx-xml</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>net.sf.ofx4j</groupId>
+            <artifactId>ofx4j</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>calima-nfse</artifactId>
+            <version>${calima.nfse.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>nfe-xml-parser</artifactId>
+            <version>${nfe.xml.parser.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>calima-cnab</artifactId>
+            <version>${calima.cnab.version}</version>
+        </dependency>
+
+        <!-- Gerador de Boletos -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>projetus-jrimum-bopepo</artifactId>
+            <version>${projetus.jrimum.bopepo.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>itext</artifactId>
+                    <groupId>com.lowagie</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>jaxb-impl</artifactId>
+                    <groupId>sun-jaxb</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!--Models do Jrimum Boleto-->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>projetus-jrimum-domkee</artifactId>
+            <version>${projetus.jrimum.domkee.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>sped-ecf</artifactId>
+            <version>${sped.ecf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>livro-digital-df</artifactId>
+            <version>${livro.digital.df.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dctf</artifactId>
+            <version>${dctf.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dmed</artifactId>
+            <version>${dmed.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>bem</artifactId>
+            <version>${bem.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>esocial-core</artifactId>
+            <version>${esocial.core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>giam-to</artifactId>
+            <version>${giam.to.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dief-ce</artifactId>
+            <version>${dief.ce.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>gia-mt</artifactId>
+            <version>${gia.mt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>manifestacao-destinatario</artifactId>
+            <version>${manifestacao.destinatario.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>leitor</artifactId>
+            <version>${leitor.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>calima-teste</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Dependecia necessária para EL nos testes-->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Libs do calima-nfse -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-kernel</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.ws.commons.axiom</groupId>
+            <artifactId>axiom</artifactId>
+            <type>pom</type>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.santuario</groupId>
+            <artifactId>xmlsec</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-adb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-http</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-transport-local</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.axis2</groupId>
+            <artifactId>axis2-jaxws</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.thoughtworks.xstream</groupId>
+            <artifactId>xstream</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!-- DIEF PA -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dief-pa</artifactId>
+            <version>${dief.pa.version}</version>
+        </dependency>
+        <!-- DAC AL -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dac-al</artifactId>
+            <version>${dac.al.version}</version>
+        </dependency>
+
+        <!-- DIEF MA -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>dief-ma</artifactId>
+            <version>${dief.ma.version}</version>
+        </dependency>
+
+        <!-- CAT 79/2003 -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>cat-792003</artifactId>
+            <version>${cat.792003.version}</version>
+        </dependency>
+
+        <!-- DES PBH -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>des-pbh</artifactId>
+            <version>${des.pbh.version}</version>
+        </dependency>
+
+        <!-- EFD-REINF -->
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>efd-reinf</artifactId>
+            <version>${efd.reinf.version}</version>
+        </dependency>
+
+    </dependencies>
+</project>
