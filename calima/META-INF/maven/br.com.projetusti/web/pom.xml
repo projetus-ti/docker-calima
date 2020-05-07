@@ -412,6 +412,7 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
+            <version>${hikaricp.version}</version>
         </dependency>
 
         <!-- SPED Contabil -->
@@ -731,6 +732,12 @@
             <groupId>br.com.projetusti</groupId>
             <artifactId>dmed</artifactId>
             <version>${dmed.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>bem</artifactId>
+            <version>${bem.version}</version>
         </dependency>
 
         <dependency>
