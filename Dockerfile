@@ -22,6 +22,7 @@ COPY context.xml /usr/local/tomcat/conf/context.xml
 RUN mkdir -p /usr/local/tomcat/webapps/calima
 RUN mkdir -p /usr/local/tomcat/webapps/ROOT
 COPY context.xml /usr/local/tomcat/webapps/ROOT
+COPY crossdomain.xml /usr/local/tomcat/webapps/ROOT
 COPY calima /usr/local/tomcat/webapps/calima
 
 EXPOSE 8080
