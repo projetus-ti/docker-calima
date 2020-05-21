@@ -15,6 +15,8 @@
     <title>Calima - ERP Cont&#225;bil</title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" language="javascript"></script>
     <script src="js/store.min.js" language="javascript"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" language="javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-waitingfor/1.2.8/bootstrap-waitingfor.min.js" language="javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" language="javascript"></script>
     <script src="js/calima.js" language="javascript"></script>
     <script src="https://login.calimaerp.com/history/history.js" language="javascript"></script>
@@ -98,6 +100,21 @@
                     <button type="button" class="btn btn-lg btn-danger" onclick="tokenClick(false)">Voltar</button>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAlert" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Informação</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="message"></p>
+                </div>
+                <div class="justify-content-center modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
