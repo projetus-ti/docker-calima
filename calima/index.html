@@ -27,7 +27,9 @@
         <source src="https://cdn.projetusti.com.br/login/background.mp4" type="video/mp4">
     </video>
     <div class="logocalima">
-        <img src="https://cdn.projetusti.com.br/login/calima.png" alt="Logo Calima"/>
+        <a href="https://www.calimaerp.com/" target="_blank">
+            <img src="https://cdn.projetusti.com.br/login/calima.png" alt="Logo Calima"/>
+        </a>
     </div>
     <div class="calimaweb">
         <h4 class="bemvindo">SEJA BEM-VINDO AO</h4>
@@ -54,20 +56,25 @@
                            required onchange="nw(this)" maxlength="256" onblur="validate(this)"
                            data-required-error="Senha - Campo não pode estar em branco.">
                 </div>
-                <div class="form-group control-buttons-tab dadosLogin">
-                    <button type="button" class="btn btn-lg btn-primary" onclick="m(this)">Entrar</button>
-                    <button type="button" class="btn btn-lg btn-warning"
+                <div class="control-buttons-tab dadosLogin pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-primary" onclick="m(this)">Entrar</button>
+                </div>
+                <div class="control-buttons-tab dadosLogin pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-warning"
                             onclick="window.open('https://ajuda.projetusti.com.br/index.php?curid=1')">
                         Ajuda
                     </button>
                 </div>
-                <div class="form-group control-buttons-tab dadosLogin">
-                    <i class="fas fa-users-cog" title="Login via Token" onclick="tokenClick(true)" aria-hidden="true"></i>
-                    <button type="button" class="text-white btn btn-sm btn-link"
+                <div class="control-buttons-tab dadosLogin pt-2">
+                    <button type="button" class="text-white btn btn-md btn-block btn-danger"
                             onclick="window.open('https://centraldocliente.projetusti.com.br/#/cadastro')">
                         Não possui login? Cadastre-se agora!
                     </button>
                 </div>
+                <div class="form-group control-buttons-tab dadosLogin pt-2">
+                    <i class="fas fa-users-cog" title="Login via Token" onclick="tokenClick(true)" aria-hidden="true"></i>
+                </div>
+
                 <div class="form-group dadosRecuperarLogin">
                     <input id="recuperarLogin" name="recuperarLogin" class="form-control inputRecuperar"
                            placeholder="Seu usuário ou e-mail"
@@ -75,7 +82,7 @@
                            data-required-error="E-mail - Campo não pode estar em branco.">
                 </div>
                 <div class="control-buttons-tab dadosRecuperarLogin">
-                    <button type="button" class="btn btn-lg btn-primary" onclick="recuperar(this)">Recuperar</button>
+                    <button type="button" class="btn btn-md btn-block btn-primary" onclick="recuperar(this)">Recuperar</button>
                 </div>
                 <div class="passRecover">
                     <label class="form-check-label" for="passRecover">
@@ -95,9 +102,11 @@
                            required onchange="nw(this)" maxlength="256" onblur="validate(this)"
                            data-required-error="Token - Campo não pode estar em branco.">
                 </div>
-                <div class="form-group control-buttons-tab dadosToken">
-                    <button type="button" class="btn btn-lg btn-primary" onclick="loginToken(this)">Entrar</button>
-                    <button type="button" class="btn btn-lg btn-danger" onclick="tokenClick(false)">Voltar</button>
+                <div class="control-buttons-tab dadosToken pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-primary" onclick="loginToken(this)">Entrar</button>
+                </div>
+                <div class="control-buttons-tab dadosToken pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-danger" onclick="tokenClick(false)">Voltar</button>
                 </div>
             </form>
         </div>
@@ -127,13 +136,41 @@
             + "<div class='logocalima'>" + "<img src='https://cdn.projetusti.com.br/login/calima.png'>" + "</div>"
             + "<div class='calimaweb'>"
             + "<h4 class='bemvindo'>SEJA BEM-VINDO AO</h4>" + "<h1 class='display-1'>CALIMA WEB</h1>" + "</div>"
-            + "<div class='botoes'> "
+            + "<div class='botoes'>"
+            + "<div class='form-group control-buttons-tab dadosLogin'>"
+            + "<button type='button' class='text-white btn btn-md btn-danger' style='width: 550px;' onclick='window.open(&#39https://centraldocliente.projetusti.com.br/#/cadastro&#39)'>"
+            + "Não possui login? Cadastre-se agora!"
+            + "</button>"
+            + "</div>"
             + "<h5 class='subtitulo'>RECOMENDAMOS QUE UTILIZE NOSSO APLICATIVO EM SEU COMPUTADOR</h5>"
             + "<div class='row'>"
-            + "<div class='col text-right p-0'><a href='https://download.projetusti.com.br/calima/instalador/calima-app.exe'><button type='button' class='btn btn-lg btn-danger'>Baixar Aplicativo (Recomendado)</button></a></div>"
-            + "<div class='col text-left p-0'><a href='http://www.adobe.com/go/getflash/'><button type='button' class='btn btn-lg btn-primary'>Continuar pelo Navegador</button></a></div>"
-            + "</div><div class='row'><div class='col text-center p-1'><a href='https://ajuda.projetusti.com.br/index.php?curid=6466' target='_blank'><button type='button' class='btn btn-sm btn-warning'>Está com dificuldade em acessar pelo navegador? Clique aqui</button></a></div>"
-            + "</div></div></div>";
+            + "<div class='col text-center p-2'>"
+            + "<a href='https://download.projetusti.com.br/calima/instalador/calima-app.exe'>"
+            + "<button type='button' class='btn btn-md btn-warning' style='width: 550px;'>"
+            + "Baixar Aplicativo (Recomendado)"
+            + "</button>"
+            + "</a>"
+            + "</div>"
+            + "</div>"
+            + "<div class='row'>"
+            + "<div class='mx-auto p1'>"
+            + "<a href='http://www.adobe.com/go/getflash/'>"
+            + "<button type='button' class='btn btn-md btn-primary' style='width: 550px;'>"
+            + "Continuar pelo Navegador"
+            + "</button>"
+            + "</a>"
+            + "</div>"
+            + "</div>"
+            + "<div class='row'>"
+            + "<div class='col text-center p-2'>"
+            + "<a href='https://ajuda.projetusti.com.br/index.php?curid=6466' target='_blank'>"
+            + "<button type='button' class='btn btn-lg bg-gray' style='width: 550px;'>"
+            + "Está com dificuldade em acessar pelo navegador? Clique aqui"
+            + "</button>"
+            + "</a>"
+            + "</div>"
+            + "</div>"
+            + "</div>"
         document.getElementById('container').style.display = "none";
         document.write(alternateContent);
     }
