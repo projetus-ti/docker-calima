@@ -12,7 +12,7 @@ dpkg-reconfigure -f noninteractive tzdata && \
 apt-get clean
 
 # Java config
-ENV CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=70 -Xgcpolicy:gencon -Xaggressive -Xclassgc -Xalwaysclassgc -Xtune:virtualized -XX:+IdleTuningGcOnIdle -Djdk.tls.ephemeralDHKeySize=2048 -DShowLog=true -Dcalima.log.checkMemory=true -Dcalima.gc.force=true -Djava.awt.headless=true -Duser.timezone=GMT-3 -Duser.language=pt -Duser.country=BR"
+ENV CATALINA_OPTS="$CATALINA_OPTS -XX:MaxRAMPercentage=85 -XX:+ExitOnOutOfMemoryError -Xgcpolicy:gencon -Xaggressive -Xclassgc -Xalwaysclassgc -Xtune:virtualized -XX:+IdleTuningGcOnIdle -Djdk.tls.ephemeralDHKeySize=2048 -DShowLog=true -Dcalima.log.checkMemory=true -Dcalima.gc.force=true -Djava.awt.headless=true -Duser.timezone=GMT-3 -Duser.language=pt -Duser.country=BR"
 
 # Remove existing tomcat webapps
 RUN rm -rf /usr/local/tomcat/webapps
