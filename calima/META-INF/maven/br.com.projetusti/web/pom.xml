@@ -139,7 +139,7 @@
                 <version>${jasperreports.plugin.version}</version>
                 <configuration>
                     <compiler>net.sf.jasperreports.compilers.JRGroovyCompiler</compiler>
-                    <!--<outputDirectory>${project.build.outputDirectory}/../calima/WEB-INF/classes</outputDirectory>-->
+                    <!--outputDirectory>${project.build.outputDirectory}/../calima/WEB-INF/classes</outputDirectory-->
                 </configuration>
                 <executions>
                     <execution>
