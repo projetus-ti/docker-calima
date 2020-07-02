@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update>
-    <versionNumber>4.3.03-20070117</versionNumber>
-    <versionLabel>4.3.03-20070117</versionLabel>
+    <versionNumber>4.3.02-20070213</versionNumber>
+    <versionLabel>4.3.02-20070213</versionLabel>
     <entryPoint>Main</entryPoint>
 </update>
