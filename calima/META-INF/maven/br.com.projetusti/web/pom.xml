@@ -49,8 +49,6 @@
         <!-- END Sonar Properties -->
         <!-- ******************************************************************************************* -->
         <xz.version>1.8</xz.version>
-
-        <spring.version>4.3.9.RELEASE</spring.version> <!-- TODO levar para o calima-bom -->
     </properties>
 
     <!-- Construção -->
@@ -61,6 +59,25 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <version>${ant.plugin.version}</version>
                 <executions>
+                    <execution>
+                        <id>flex-build</id>
+                        <phase>compile</phase>
+                        <configuration>
+                            <tasks>
+                                <propertyfile file="../flex/build.properties">
+                                    <entry key="project.version" value="${project.version}"/>
+                                    <entry key="build.number" value="${buildNumber}"/>
+                                </propertyfile>
+                                <ant antfile="../flex/build.xml" usenativebasedir="true">
+                                    <target name="build"/>
+                                </ant>
+                            </tasks>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+
                     <execution>
                         <id>archive</id>
                         <phase>install</phase>
@@ -122,7 +139,7 @@
                 <version>${jasperreports.plugin.version}</version>
                 <configuration>
                     <compiler>net.sf.jasperreports.compilers.JRGroovyCompiler</compiler>
-                    <!--<outputDirectory>${project.build.outputDirectory}/../calima/WEB-INF/classes</outputDirectory> -->
+                    <!--outputDirectory>${project.build.outputDirectory}/../calima/WEB-INF/classes</outputDirectory-->
                 </configuration>
                 <executions>
                     <execution>
@@ -171,7 +188,54 @@
                         <artifactId>barcode4j</artifactId>
                         <version>${barcode4j.version}</version>
                     </dependency>
+
                 </dependencies>
+            </plugin>
+
+            <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>minify-maven-plugin</artifactId>
+                <version>1.7.6</version>
+                <executions>
+                    <execution>
+                        <id>minify-js</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <jsEngine>CLOSURE</jsEngine>
+                    <webappTargetDir>${project.build.directory}/min</webappTargetDir>
+                    <charset>utf-8</charset>
+                    <skipMerge>false</skipMerge>
+                    <nosuffix>true</nosuffix>
+                    <jsFinalFile>calima.js</jsFinalFile>
+                    <cssFinalFile>calima.css</cssFinalFile>
+                    <cssSourceIncludes>
+                        <cssSourceInclude>**</cssSourceInclude>
+                    </cssSourceIncludes>
+                    <cssSourceExcludes>
+                        <cssSourceExclude>**/*.min.css</cssSourceExclude>
+                    </cssSourceExcludes>
+                    <jsSourceIncludes>
+                        <jsSourceInclude>**</jsSourceInclude>
+                    </jsSourceIncludes>
+                    <jsSourceExcludes>
+                        <jsSourceExclude>**/*.min.js</jsSourceExclude>
+                    </jsSourceExcludes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <configuration>
+                    <webResources>
+                        <resource>
+                            <directory>${project.build.directory}/min</directory>
+                        </resource>
+                    </webResources>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -206,18 +270,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-websocket</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-messaging</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <!-- Spring Test -->
@@ -553,7 +605,7 @@
         <dependency>
             <groupId>org.reflections</groupId>
             <artifactId>reflections</artifactId>
-            <scope>compile</scope>
+            <scope>test</scope>
         </dependency>
 
         <!-- AspectJ -->
@@ -723,11 +775,10 @@
             <artifactId>leitor</artifactId>
             <version>${leitor.version}</version>
         </dependency>
-        <!-- TODO Remover a tag version após o fim da migração do flex para o React -->
+
         <dependency>
             <groupId>br.com.projetusti</groupId>
             <artifactId>calima-teste</artifactId>
-            <version>1.2.35.react</version>
             <scope>test</scope>
         </dependency>
         <!-- Dependecia necessária para EL nos testes-->
@@ -828,12 +879,6 @@
             <groupId>br.com.projetusti</groupId>
             <artifactId>efd-reinf</artifactId>
             <version>${efd.reinf.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-            <version>${commons-fileupload.version}</version>
         </dependency>
 
     </dependencies>

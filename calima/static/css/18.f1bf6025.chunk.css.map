@@ -1,1 +1,0 @@
-{"version":3,"sources":["VinculoEditView.css"],"names":[],"mappings":"AAAA,sBACE,UACF,CAEA,qCACE,4BACF","file":"18.f1bf6025.chunk.css","sourcesContent":[".vinculo-toolbar .btn {\r\n  color: #000;\r\n}\r\n\r\n#detailManagerOutraRemuneracao .card {\r\n  margin-bottom: 20px !important;\r\n}\r\n"]}
