@@ -21,6 +21,12 @@
         <flex:message-interceptor ref="logginInterceptor"/>
     </flex:message-broker>
 
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- one of the properties available; the maximum file size in bytes (1 gb) -->
+        <property name="maxUploadSize" value="1073741824"/>
+    </bean>
+
     <!--  Canal padrão para DataPush -->
     <flex:message-destination id="general" channels="my-polling-amf" message-time-to-live="60000"/>
 

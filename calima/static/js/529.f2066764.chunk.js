@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[529],{1302:function(e,t,a){"use strict";a.r(t);var n=a(0),c=a.n(n),i=a(20),l=a(2),o=a(49);t.default=(()=>{const e=Object(i.b)();return Object(n.useEffect)(()=>{e(Object(o.c)("MLF"))},[]),c.a.createElement(c.a.Fragment,null,c.a.createElement(l.P,{pageTitleShadow:!0,titleHeading:"M\xf3dulo Livro Fiscal"}))})}}]);
+//# sourceMappingURL=529.f2066764.chunk.js.map
