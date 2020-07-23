@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[528],{1289:function(e,t,n){"use strict";n.r(t);var a=n(0),c=n.n(a),o=n(20),r=n(2),i=n(49);t.default=(()=>{const e=Object(o.b)();return Object(a.useEffect)(()=>{e(Object(i.c)("MHO"))},[]),c.a.createElement(c.a.Fragment,null,c.a.createElement(r.P,{pageTitleShadow:!0,titleHeading:"M\xf3dulo de Honor\xe1rios"}))})}}]);
-//# sourceMappingURL=528.b53d87e9.chunk.js.map

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/calima/precache-manifest.15eac1f1195576c19132c6e7525da095.js"
+  "/calima/precache-manifest.7a3e592f3bb9c85af156550205e4540a.js"
 );
 
 self.addEventListener('message', (event) => {

@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[539],{1242:function(e,t,a){"use strict";a.r(t);var n=a(0),c=a.n(n),o=a(19),l=a(2),r=a(49);t.default=(()=>{const e=Object(o.b)();return Object(n.useEffect)(()=>{e(Object(r.c)("MFP"))},[]),c.a.createElement(c.a.Fragment,null,c.a.createElement(l.P,{pageTitleShadow:!0,titleHeading:"M\xf3dulo Folha de Pagamento"}))})}}]);
+//# sourceMappingURL=539.2517c1aa.chunk.js.map

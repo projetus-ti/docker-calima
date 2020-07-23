@@ -1,1 +1,0 @@
-{"version":3,"sources":["LancamentoPadrao.css"],"names":[],"mappings":"AAAA,iDACE,SACF,CAEA,mDACE,UACF","file":"86.bca937d9.chunk.css","sourcesContent":["#planoContaDebito-addon, #centroCustoDebito-addon {\r\n  color: #ff0000;\r\n}\r\n\r\n#planoContaCredito-addon, #centroCustoCredito-addon {\r\n  color: #0000ff;\r\n}\r\n"]}
