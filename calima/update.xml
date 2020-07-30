@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <update>
-    <versionNumber>4.3.03-20072020</versionNumber>
-    <versionLabel>4.3.03-20072020</versionLabel>
-    <entryPoint>Main</entryPoint>
+    <versionNumber>4.3.04-20072921</versionNumber>
+    <versionLabel>4.3.04-20072921</versionLabel>
+    <entryPoint>MainCanary</entryPoint>
 </update>
