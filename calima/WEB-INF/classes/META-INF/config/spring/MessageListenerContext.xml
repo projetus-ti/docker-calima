@@ -34,8 +34,7 @@
     <bean id="jmsJOBConnectionFactory"
           class="org.springframework.jms.connection.SingleConnectionFactory"
           depends-on="broker"
-          p:targetConnectionFactory-ref="jmsFactory"
-          p:reconnectOnException="true"/>
+          p:targetConnectionFactory-ref="jmsFactory"/>
 
     <bean id="jmsRequestJOBTemplate" class="org.springframework.jms.core.JmsTemplate"
           p:connectionFactory-ref="jmsJOBConnectionFactory"
