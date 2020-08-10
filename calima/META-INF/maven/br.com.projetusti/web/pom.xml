@@ -781,6 +781,7 @@
             <artifactId>calima-teste</artifactId>
             <scope>test</scope>
         </dependency>
+
         <!-- Dependecia necessária para EL nos testes-->
         <dependency>
             <groupId>org.glassfish</groupId>
