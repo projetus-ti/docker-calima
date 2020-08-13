@@ -1,0 +1,183 @@
+﻿<html lang="pt-br">
+<head><title>Calima ERP Contábil</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=yes">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+          integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="css/calima.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+    <link rel="shortcut icon" href="https://login.calimaerp.com/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="https://login.calimaerp.com/history/history.css"/>
+    <title>Calima - ERP Cont&#225;bil</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" language="javascript"></script>
+    <script src="js/store.min.js" language="javascript"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" language="javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-waitingfor/1.2.8/bootstrap-waitingfor.min.js" language="javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" language="javascript"></script>
+    <script src="js/calima.js" language="javascript"></script>
+    <script src="https://login.calimaerp.com/history/history.js" language="javascript"></script>
+</head>
+<body>
+<div id="container">
+    <video poster="https://cdn.projetusti.com.br/login/background.webp" id="bgvid" playsinline autoplay muted loop>
+        <source src="https://cdn.projetusti.com.br/login/background.mp4" type="video/mp4">
+    </video>
+    <div class="logocalima">
+        <a href="https://www.calimaerp.com/" target="_blank">
+            <img src="https://cdn.projetusti.com.br/login/calima.png" alt="Logo Calima"/>
+        </a>
+    </div>
+    <div class="calimaweb">
+        <h4 class="bemvindo">SEJA BEM-VINDO AO</h4>
+        <h1 class="display-1">CALIMA WEB</h1>
+        <h5 class="subtitulo">FAÇA SEU LOGIN</h5>
+    </div>
+    <div class="login">
+        <div class="col-sm-3 form-group-lg">
+            <form data-toggle="validator" role="form">
+                <div class="form-group dadosLogin">
+                    <input type="number" id="codigo" name="codigo" class="form-control inputLogin" placeholder="Código do cliente"
+                           autofocus required onchange="ny(this)" onblur="validate(this)" maxlength="15"
+                           data-toggle="tooltip" data-placement="right" min="0"
+                           title="Esse código corresponde ao Código do Cliente do Cadastro da Projetus. Caso tenha esquecido clique em 'Recuperar senha' para obtê-lo."
+                           data-required-error="Código - Campo não pode estar em branco.">
+                </div>
+                <div class="form-group dadosLogin">
+                    <input id="username" name="username" class="form-control inputLogin" placeholder="Seu usuário"
+                           autofocus required onchange="nz(this)" onblur="validate(this)" maxlength="60"
+                           data-required-error="Usuário - Campo não pode estar em branco.">
+                </div>
+                <div class="form-group dadosLogin">
+                    <input type="password" id="password" name="password" class="form-control inputLogin" placeholder="Sua senha"
+                           required onchange="nw(this)" maxlength="256" onblur="validate(this)"
+                           data-required-error="Senha - Campo não pode estar em branco.">
+                </div>
+                <div class="control-buttons-tab dadosLogin pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-primary" onclick="m(this)">Entrar</button>
+                </div>
+                <div class="control-buttons-tab dadosLogin pt-2">
+                    <a href='https://download.projetusti.com.br/calima/instalador/calima-app.exe' type='button' class='btn btn-md btn-warning btn-block'>
+                        Baixar Aplicativo (Recomendado)
+                    </a>
+                </div>
+                <div class="control-buttons-tab dadosLogin pt-2">
+                    <button type="button" class="text-white btn btn-md btn-block btn-danger"
+                            onclick="window.open('https://centraldocliente.projetusti.com.br/#/cadastro')">
+                        Não possui login? Cadastre-se agora!
+                    </button>
+                </div>
+                <div class="form-group control-buttons-tab dadosLogin pt-2">
+                    <i class="fas fa-users-cog" title="Login via Token" onclick="tokenClick(true)" aria-hidden="true"></i>
+                </div>
+
+                <div class="form-group dadosRecuperarLogin">
+                    <input id="recuperarLogin" name="recuperarLogin" class="form-control inputRecuperar"
+                           placeholder="Seu usuário ou e-mail"
+                           autofocus required onchange="nx(this)" maxlength="256" onblur="validate(this)"
+                           data-required-error="E-mail - Campo não pode estar em branco.">
+                </div>
+                <div class="control-buttons-tab dadosRecuperarLogin">
+                    <button type="button" class="btn btn-md btn-block btn-primary" onclick="recuperar(this)">Recuperar</button>
+                </div>
+                <div class="passRecover">
+                    <label class="form-check-label" for="passRecover">
+                        <input type="checkbox" class="form-check-input" id="passRecover" name="passRecover">
+                        <span>Recuperar senha</span>
+                    </label>
+                </div>
+                <div class="form-group dadosToken">
+                    <input type="number" id="codigoClienteToken" name="codigo" class="form-control inputToken"
+                           placeholder="Código do cliente"
+                           autofocus required onchange="ny(this)" onblur="validate(this)" maxlength="15" min="0"
+                           data-toggle="tooltip" data-placement="right"
+                           data-required-error="Código - Campo não pode estar em branco.">
+                </div>
+                <div class="form-group dadosToken">
+                    <input type="password" id="passwordToken" name="passwordToken" class="form-control inputToken" placeholder="Token"
+                           required onchange="nw(this)" maxlength="256" onblur="validate(this)"
+                           data-required-error="Token - Campo não pode estar em branco.">
+                </div>
+                <div class="control-buttons-tab dadosToken pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-primary" onclick="loginToken(this)">Entrar</button>
+                </div>
+                <div class="control-buttons-tab dadosToken pt-2">
+                    <button type="button" class="btn btn-md btn-block btn-danger" onclick="tokenClick(false)">Voltar</button>
+                </div>
+                <div>
+                    <a href='https://ajuda.projetusti.com.br/index.php?curid=6466' target='_blank' type='button' class='btn btn-lg bg-gray btn-block'>
+                        Está com dificuldade em acessar pelo navegador? Clique aqui
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="modal fade" id="modalAlert" role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Informação</h4>
+                </div>
+                <div class="modal-body">
+                    <p id="message"></p>
+                </div>
+                <div class="justify-content-center modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script language="JavaScript" type="text/javascript">
+    if (!hasProductInstall && !hasRequestedVersion) {
+        var alternateContent =
+            "<video poster='https://cdn.projetusti.com.br/login/background.webp' id='bgvid' playsinline autoplay muted loop>"
+            + "<source src='https://cdn.projetusti.com.br/login/background.mp4' type='video/mp4'>"
+            + "</video>"
+            + "<div class='container'>"
+            + "<div class='logocalima'>"
+            + "<a href='https://www.calimaerp.com/' target='_blank'>"
+            + "<img src='https://cdn.projetusti.com.br/login/calima.png'>"
+            + "</a>"
+            + "</div>"
+            + "<div class='calimaweb'>"
+            + "<h4 class='bemvindo'>SEJA BEM-VINDO AO</h4>"
+            + "<h1 class='display-1'>CALIMA WEB</h1>"
+            + "</div>"
+            + "<div class='containerBotoes mt-3'>"
+            + "<div class='col'>"
+            + "<div class='row p-1'>"
+            + "<a href='https://centraldocliente.projetusti.com.br/#/cadastro' target='_blank' type='button' class='text-white btn btn-md btn-danger btn-block'>"
+            + "Não possui login? Cadastre-se agora!"
+            + "</a>"
+            + "</div>"
+            + "<div class='row  p-1'>"
+            + "<h5 class='subtitulo'>"
+            + "ESSE APLICATIVO É COMPATÍVEL APENAS COM NAVEGADORES QUE POSSUEM SUPORTE NATIVO A FLASH PLAYER. RECOMENDAMOS QUE UTILIZE NOSSO APLICATIVO EM SEU COMPUTADOR."
+            + "</h5>"
+            + "</div>"
+            + "<div class='row  p-1'>"
+            + "<a href='https://download.projetusti.com.br/calima/instalador/calima-app.exe' type='button' class='btn btn-md btn-warning btn-block'>"
+            + "Baixar Aplicativo (Recomendado)"
+            + "</a>"
+            + "</div>"
+            + "<div class='row  p-1'>"
+            + "<a href='http://www.adobe.com/go/getflash/' type='button' class='text-center btn btn-md btn-primary btn-block'>"
+            + "Continuar pelo Navegador"
+            + "</a>"
+            + "</div>"
+            + "<div class='row  p-1'>"
+            + "<a href='https://ajuda.projetusti.com.br/index.php?curid=6466' target='_blank' type='button' class='btn btn-lg bg-gray btn-block'>"
+            + "Está com dificuldade em acessar pelo navegador? Clique aqui"
+            + "</a>"
+            + "</div>"
+            + "</div>"
+        document.getElementById('container').style.display = "none";
+        document.write(alternateContent);
+    }
+</script>
+</body>
+</html>

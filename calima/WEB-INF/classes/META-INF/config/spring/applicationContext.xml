@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:flex="http://www.springframework.org/schema/flex"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/flex
+		http://www.springframework.org/schema/flex/spring-flex-1.5.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+    <!-- Arquivos *.properties -->
+    <context:property-placeholder location="classpath*:META-INF/*.properties"/>
+
+    <!-- MessageBroker -->
+    <flex:message-broker services-config-path="classpath*:META-INF/config/flex/services-config.xml" exception-logger="exceptionLogger">
+        <flex:mapping pattern="/messagebroker/*"/>
+        <flex:exception-translator ref="exceptionTranslator"/>
+        <flex:message-interceptor ref="logginInterceptor"/>
+    </flex:message-broker>
+
+    <!--  Canal padrão para DataPush -->
+    <flex:message-destination id="general" channels="my-polling-amf" message-time-to-live="60000"/>
+
+    <!-- IM -->
+    <flex:message-destination id="chat" channels="my-polling-amf" message-time-to-live="60000"/>
+
+    <!-- Central de Notícias -->
+    <flex:message-destination id="scheduler" channels="my-amf, my-polling-amf" message-time-to-live="60000"/>
+
+</beans>

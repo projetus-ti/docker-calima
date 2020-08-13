@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<service id="remoting-service" class="flex.messaging.services.RemotingService">
+    <adapters>
+        <adapter-definition id="java-object" class="flex.messaging.services.remoting.adapters.JavaAdapter" default="true"/>
+    </adapters>
+
+    <default-channels>
+        <channel ref="my-amf"/>
+    </default-channels>
+
+    <!-- Não remover necessário para os relatório da contabilidade -->
+    <destination id="DCJavaFlexUtilService">
+        <properties>
+            <source>novelty.util.JavaFlexUtilService
+            </source>
+        </properties>
+    </destination>
+
+</service>
