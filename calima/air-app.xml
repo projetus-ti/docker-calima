@@ -25,8 +25,8 @@
     <name>Calima - ERP Contábil</name>
 
     <!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-    <versionNumber>4.3.04</versionNumber>
-    <versionLabel>4.3.04-20081311</versionLabel>
+    <versionNumber>4.3.05</versionNumber>
+    <versionLabel>4.3.05-20081314</versionLabel>
 
     <!-- Description, displayed in the AIR application installer.
          May have multiple values for each language. See samples or xsd schema file. Optional. -->
