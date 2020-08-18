@@ -28,17 +28,7 @@
         <project.testbuild.directory>${project.basedir}/../target</project.testbuild.directory>
         <project.testresult.directory>${project.basedir}/../target/test-results</project.testresult.directory>
 
-        <sonar.coverage.jacoco.xmlReportPaths>${project.testbuild.directory}\coverage\jacoco\jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-        <sonar.groovy.binaries>${project.testbuild.directory}</sonar.groovy.binaries>
-        <sonar.groovy.jacoco.reportPath>${project.testbuild.directory}/jacoco.exec</sonar.groovy.jacoco.reportPath>
-
-        <sonar.junit.reportPaths>${project.testbuild.directory}/surefire-reports</sonar.junit.reportPaths>
-        <!-- For Sonar < 6.2 -->
-        <sonar.javascript.lcov.reportPath>${project.testresult.directory}/coverage/report-lcov/lcov.info
-        </sonar.javascript.lcov.reportPath>
-        <!-- For Sonar >= 6.2 -->
-        <sonar.javascript.lcov.reportPaths>${project.testresult.directory}/coverage/report-lcov/lcov.info
-        </sonar.javascript.lcov.reportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/coverage/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.sources>src/main</sonar.sources>
         <sonar.surefire.reportsPath>${project.testresult.directory}/surefire-reports</sonar.surefire.reportsPath>
         <sonar.tests>src/test</sonar.tests>
