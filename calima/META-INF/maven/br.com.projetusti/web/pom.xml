@@ -284,6 +284,12 @@
             <artifactId>com.springsource.net.sf.cglib</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>br.com.projetusti</groupId>
+            <artifactId>ponto-eletronico</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
         <!--  Groovy -->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>

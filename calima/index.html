@@ -5,30 +5,41 @@
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="-1">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    <link rel="stylesheet" href="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/fontawesome_all.css"
           integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/bootstrap.min.css">
     <link rel="stylesheet" href="css/calima.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
-    <link rel="shortcut icon" href="https://login.calimaerp.com/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="https://login.calimaerp.com/history/history.css"/>
+    <link rel="stylesheet" href="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/toastr.min.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" type="text/css" href="history/history.css"/>
     <title>Calima - ERP Cont&#225;bil</title>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" language="javascript"></script>
+    <script src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/jquery-3.3.1.min.js" language="javascript"></script>
     <script src="js/store.min.js" language="javascript"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" language="javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-waitingfor/1.2.8/bootstrap-waitingfor.min.js" language="javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" language="javascript"></script>
+    <script src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/bootstrap.min.js" language="javascript"></script>
+    <script src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/bootstrap-waitingfor.min.js" language="javascript"></script>
+    <script src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/toastr.min.js" language="javascript"></script>
     <script src="js/calima.js" language="javascript"></script>
-    <script src="https://login.calimaerp.com/history/history.js" language="javascript"></script>
+    <script src="history/history.js" language="javascript"></script>
+    <script type="text/javascript">
+        window.$crisp=[];
+        window.CRISP_WEBSITE_ID="48b4bd38-cdbc-4ee6-8439-b3fcfac97d7c";
+        window.CRISP_CALIMA=true;
+        (function(){
+            var d=document,rd=function(){return Math.round(Math.random()*99999);},
+            ca=function(su,urd){var sc=d.createElement("script");sc.src=su+(urd?('?'+rd()):'');sc.async=1;d.getElementsByTagName("head")[0].appendChild(sc);};
+            ca("https://client.crisp.chat/l.js");
+            ca("https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/integracao-crisp.min.js", true);
+        })();
+    </script>
 </head>
 <body>
 <div id="container">
-    <video poster="https://cdn.projetusti.com.br/login/background.webp" id="bgvid" playsinline autoplay muted loop>
-        <source src="https://cdn.projetusti.com.br/login/background.mp4" type="video/mp4">
+    <video poster="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/background.webp" id="bgvid" playsinline autoplay muted loop>
+        <source src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/background.mp4" type="video/mp4">
     </video>
     <div class="logocalima">
         <a href="https://www.calimaerp.com/" target="_blank">
-            <img src="https://cdn.projetusti.com.br/login/calima.png" alt="Logo Calima"/>
+            <img src="https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/calima.png" alt="Logo Calima"/>
         </a>
     </div>
     <div class="calimaweb">
@@ -40,16 +51,9 @@
         <div class="col-sm-3 form-group-lg">
             <form data-toggle="validator" role="form">
                 <div class="form-group dadosLogin">
-                    <input type="number" id="codigo" name="codigo" class="form-control inputLogin" placeholder="Código do cliente"
-                           autofocus required onchange="ny(this)" onblur="validate(this)" maxlength="15"
-                           data-toggle="tooltip" data-placement="right" min="0"
-                           title="Esse código corresponde ao Código do Cliente do Cadastro da Projetus. Caso tenha esquecido clique em 'Recuperar senha' para obtê-lo."
-                           data-required-error="Código - Campo não pode estar em branco.">
-                </div>
-                <div class="form-group dadosLogin">
-                    <input id="username" name="username" class="form-control inputLogin" placeholder="Seu usuário"
+                    <input id="username" name="username" class="form-control inputLogin" placeholder="Seu Usuário ou E-mail"
                            autofocus required onchange="nz(this)" onblur="validate(this)" maxlength="60"
-                           data-required-error="Usuário - Campo não pode estar em branco.">
+                           data-required-error="Usuário/E-mail - Campo não pode estar em branco.">
                 </div>
                 <div class="form-group dadosLogin">
                     <input type="password" id="password" name="password" class="form-control inputLogin" placeholder="Sua senha"
@@ -59,8 +63,8 @@
                 <div class="control-buttons-tab dadosLogin pt-2">
                     <button type="button" class="btn btn-md btn-block btn-primary" onclick="m(this)">Entrar</button>
                 </div>
-                <div class="control-buttons-tab dadosLogin pt-2">
-                    <a href='https://download.projetusti.com.br/calima/instalador/calima-app.exe' type='button' class='btn btn-md btn-warning btn-block'>
+                <div class="control-buttons-tab dadosLogin pt-2 flash">
+                    <a href='https://www.calimaerp.com/app' type='button' class='btn btn-md btn-warning btn-block'>
                         Baixar Aplicativo (Recomendado)
                     </a>
                 </div>
@@ -90,13 +94,6 @@
                     </label>
                 </div>
                 <div class="form-group dadosToken">
-                    <input type="number" id="codigoClienteToken" name="codigo" class="form-control inputToken"
-                           placeholder="Código do cliente"
-                           autofocus required onchange="ny(this)" onblur="validate(this)" maxlength="15" min="0"
-                           data-toggle="tooltip" data-placement="right"
-                           data-required-error="Código - Campo não pode estar em branco.">
-                </div>
-                <div class="form-group dadosToken">
                     <input type="password" id="passwordToken" name="passwordToken" class="form-control inputToken" placeholder="Token"
                            required onchange="nw(this)" maxlength="256" onblur="validate(this)"
                            data-required-error="Token - Campo não pode estar em branco.">
@@ -108,7 +105,7 @@
                     <button type="button" class="btn btn-md btn-block btn-danger" onclick="tokenClick(false)">Voltar</button>
                 </div>
                 <div>
-                    <a href='https://ajuda.projetusti.com.br/index.php?curid=6466' target='_blank' type='button' class='btn btn-lg bg-gray btn-block'>
+                    <a href='https://ajuda.projetusti.com.br/index.php?curid=6466' target='_blank' type='button' class='btn btn-lg bg-gray btn-block flash'>
                         Está com dificuldade em acessar pelo navegador? Clique aqui
                     </a>
                 </div>
@@ -134,13 +131,13 @@
 <script language="JavaScript" type="text/javascript">
     if (!hasProductInstall && !hasRequestedVersion) {
         var alternateContent =
-            "<video poster='https://cdn.projetusti.com.br/login/background.webp' id='bgvid' playsinline autoplay muted loop>"
-            + "<source src='https://cdn.projetusti.com.br/login/background.mp4' type='video/mp4'>"
+            "<video poster='https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/background.webp' id='bgvid' playsinline autoplay muted loop>"
+            + "<source src='https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/background.mp4' type='video/mp4'>"
             + "</video>"
             + "<div class='container'>"
             + "<div class='logocalima'>"
             + "<a href='https://www.calimaerp.com/' target='_blank'>"
-            + "<img src='https://cdn.projetusti.com.br/login/calima.png'>"
+            + "<img src='https://objectstorage.sa-saopaulo-1.oraclecloud.com/n/id3qvymhlwic/b/static/o/login/calima.png'>"
             + "</a>"
             + "</div>"
             + "<div class='calimaweb'>"
@@ -160,7 +157,7 @@
             + "</h5>"
             + "</div>"
             + "<div class='row  p-1'>"
-            + "<a href='https://download.projetusti.com.br/calima/instalador/calima-app.exe' type='button' class='btn btn-md btn-warning btn-block'>"
+            + "<a href='https://www.calimaerp.com/app' type='button' class='btn btn-md btn-warning btn-block'>"
             + "Baixar Aplicativo (Recomendado)"
             + "</a>"
             + "</div>"
